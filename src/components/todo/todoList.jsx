@@ -1,7 +1,7 @@
 import React from "react";
 import TodoItems from "./todoItems";
 
-function TodoList() {
+function TodoList({ todos, setTodos }) {
   return (
     <div className="mt-5 max-w-2xl mx-auto">
       <div className="border border-gray-200 rounded-md p-4">
@@ -24,7 +24,9 @@ function TodoList() {
         </div>
 
         <div className="mt-6">
-          <TodoItems />
+          {todos.length
+            ? todos.map((item) => <TodoItems todo={item} key={item.id} />)
+            : null}
         </div>
       </div>
     </div>

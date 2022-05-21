@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 
-function AddTodoForm() {
+function AddTodoForm({ todos, setTodos }) {
+  const [todo, setTodo] = useState({
+    id: "",
+    text: "",
+    done: false,
+  });
+
+  const handleInput = (event) => {
+    let value = event.target.value;
+
+    setTodo({ ...todo, text: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    setTodos([...todos, { ...todo, id: Date.now() }]);
+
+    todo.text = "";
+  };
+
   return (
     <div className="mt-10 max-w-2xl mx-auto">
       <div className="border border-gray-200 rounded-md p-4 shadow-md">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               className="text-sm text-black block mb-2 font-bold"
@@ -18,6 +38,8 @@ function AddTodoForm() {
               name="text"
               className="w-full px-4 py-2 text-sm rounded-md border border-gray-400"
               placeholder="کار مورد نظر خود را بنویسید"
+              onChange={handleInput}
+              value={todo.text}
             />
           </div>
           <div className="flex justify-end">
