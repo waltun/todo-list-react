@@ -1,5 +1,6 @@
 import Header from "../layout/header";
 import AddTodoForm from "./addTodoForm";
+import TodoList from "./todoList";
 
 function App() {
   return (
@@ -7,6 +8,8 @@ function App() {
       <Header />
 
       <AddTodoForm />
+
+      <TodoList />
     </div>
   );
 }
