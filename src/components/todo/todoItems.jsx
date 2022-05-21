@@ -1,6 +1,12 @@
 import React from "react";
 
-function TodoItems({ todo }) {
+function TodoItems({ todo, todos, setTodos }) {
+  const handleDone = (id) => {
+    let currentItem = todos.find((item) => item.id === id);
+    currentItem.done = !todo.done;
+    setTodos([{ ...currentItem }]);
+  };
+
   return (
     <div className="mb-4 border border-gray-300 rounded-md p-4">
       <div className="flex items-center justify-between">
@@ -19,7 +25,10 @@ function TodoItems({ todo }) {
             </button>
           </div>
           <div className="ml-2">
-            <button className="text-xs bg-yellow-500 px-4 py-1 rounded-md text-white hover:bg-yellow-600">
+            <button
+              className="text-xs bg-yellow-500 px-4 py-1 rounded-md text-white hover:bg-yellow-600"
+              onClick={() => handleDone(todo.id)}
+            >
               اتمام
             </button>
           </div>

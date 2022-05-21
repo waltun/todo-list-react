@@ -5,8 +5,7 @@ import TodoList from "./todoList";
 
 function App() {
   const [todos, setTodos] = useState([]);
-
-  console.log(todos);
+  const [done, setDone] = useState(false);
 
   return (
     <div className="font-IRANSans">
@@ -14,7 +13,12 @@ function App() {
 
       <AddTodoForm todos={todos} setTodos={setTodos} />
 
-      <TodoList todos={todos} setTodos={setTodos} />
+      <TodoList
+        todos={todos}
+        setTodos={setTodos}
+        done={done}
+        setDone={setDone}
+      />
     </div>
   );
 }
