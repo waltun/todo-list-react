@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
-function AddTodoForm({ todos, setTodos }) {
+// import Context
+import TodosContext from "../../context/todosContext";
+
+function AddTodoForm() {
   const [todo, setTodo] = useState({
     id: "",
     text: "",
     done: false,
   });
+
+  // Context
+  const todosContext = useContext(TodosContext);
 
   const handleInput = (event) => {
     let value = event.target.value;
@@ -16,7 +22,7 @@ function AddTodoForm({ todos, setTodos }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setTodos([...todos, { ...todo, id: Date.now() }]);
+    todosContext.setTodos([...todosContext.todos, { ...todo, id: Date.now() }]);
 
     todo.text = "";
   };

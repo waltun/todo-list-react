@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
-function EditTodoForm({ todo, setEdit, setTodos, todos }) {
+// import Context
+import TodosContext from "../../context/todosContext";
+
+function EditTodoForm({ todo, setEdit }) {
+  const todosContext = useContext(TodosContext);
+
   const [editTodo, setEditTodo] = useState(todo);
 
   const handleInput = (event) => {
@@ -13,8 +18,8 @@ function EditTodoForm({ todo, setEdit, setTodos, todos }) {
     event.preventDefault();
 
     todo.text = editTodo.text;
-    let newTodos = todos.filter((item) => item.id !== todo.id);
-    setTodos([...newTodos, { ...todo }]);
+    let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
+    todosContext.setTodos([...newTodos, { ...todo }]);
     setEdit(false);
   };
 

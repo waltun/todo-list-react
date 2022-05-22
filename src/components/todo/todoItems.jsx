@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+
+// import Components
 import EditTodoForm from "./editTodoForm";
 
-function TodoItems({ todo, todos, setTodos }) {
+// import Context
+import TodosContext from "../../context/todosContext";
+
+function TodoItems({ todo }) {
+  const todosContext = useContext(TodosContext);
+
   const [edit, setEdit] = useState(false);
 
   const handleDone = () => {
     todo.done = !todo.done;
-    let newTodos = todos.filter((item) => item.id !== todo.id);
-    setTodos([...newTodos, { ...todo }]);
+    let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
+    todosContext.setTodos([...newTodos, { ...todo }]);
   };
 
   const handleDelete = () => {
-    let newTodos = todos.filter((item) => item.id !== todo.id);
-    setTodos([...newTodos]);
+    let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
+    todosContext.setTodos([...newTodos]);
   };
 
   const handleEdit = () => {
@@ -22,13 +29,7 @@ function TodoItems({ todo, todos, setTodos }) {
   return (
     <>
       {edit ? (
-        <EditTodoForm
-          todo={todo}
-          edit={edit}
-          setEdit={setEdit}
-          todos={todos}
-          setTodos={setTodos}
-        />
+        <EditTodoForm todo={todo} edit={edit} setEdit={setEdit} />
       ) : (
         <div className="mb-4 border border-gray-300 rounded-md p-4">
           <div className="flex items-center justify-between">

@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+
+// import Components
 import TodoItems from "./todoItems";
 
-function TodoList({ todos, setTodos, done, setDone, edit, setEdit }) {
-  let doneTodos = todos.filter((item) => item.done === done);
+//import Context
+import TodosContext from "../../context/todosContext";
+
+function TodoList({ edit, setEdit }) {
+  const todosContext = useContext(TodosContext);
+
+  let doneTodos = todosContext.todos.filter(
+    (item) => item.done === todosContext.done
+  );
 
   return (
     <div className="mt-5 max-w-2xl mx-auto">
@@ -15,27 +24,32 @@ function TodoList({ todos, setTodos, done, setDone, edit, setEdit }) {
             <li className="ml-2">
               <button
                 className={`inline-block p-4 rounded-t-lg border-b-2 ${
-                  !done
+                  !todosContext.done
                     ? "border-blue-600 text-blue-600"
                     : "border-transparent text-gray-600"
                 }`}
-                onClick={() => setDone(false)}
+                onClick={() => todosContext.setDone(false)}
               >
                 کارهای در حال انجام (
-                {todos.filter((item) => item.done === false).length})
+                {
+                  todosContext.todos.filter((item) => item.done === false)
+                    .length
+                }
+                )
               </button>
             </li>
             <li className="ml-2">
               <button
                 className={`inline-block p-4 rounded-t-lg border-b-2 ${
-                  done
+                  todosContext.done
                     ? "border-blue-600 text-blue-600"
                     : "border-transparent text-gray-600"
                 }`}
-                onClick={() => setDone(true)}
+                onClick={() => todosContext.setDone(true)}
               >
                 کارهای انجام شده (
-                {todos.filter((item) => item.done === true).length})
+                {todosContext.todos.filter((item) => item.done === true).length}
+                )
               </button>
             </li>
           </ul>
@@ -47,8 +61,6 @@ function TodoList({ todos, setTodos, done, setDone, edit, setEdit }) {
               <TodoItems
                 todo={item}
                 key={item.id}
-                todos={todos}
-                setTodos={setTodos}
                 edit={edit}
                 setEdit={setEdit}
               />
