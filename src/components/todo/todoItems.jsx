@@ -6,6 +6,9 @@ import EditTodoForm from "./editTodoForm";
 // import Context
 import TodosContext from "../../context/todosContext";
 
+// import Axios
+import axios from "axios";
+
 function TodoItems({ todo }) {
   const todosContext = useContext(TodosContext);
 
@@ -14,7 +17,14 @@ function TodoItems({ todo }) {
   const handleDone = () => {
     todo.done = !todo.done;
     let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
-    todosContext.setTodos([...newTodos, { ...todo }]);
+
+    //HTTP request to end api (Change done todo)
+    axios
+      .put(`https://6283d9436b6c317d5ba74d17.endapi.io/todos/${todo.id}`, {
+        done: todo.done,
+      })
+      .then((response) => todosContext.setTodos([...newTodos, { ...todo }]))
+      .catch((error) => console.log(error));
   };
 
   const handleDelete = () => {
