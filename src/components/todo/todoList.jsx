@@ -2,6 +2,8 @@ import React from "react";
 import TodoItems from "./todoItems";
 
 function TodoList({ todos, setTodos, done, setDone }) {
+  let doneTodos = todos.filter((item) => item.done === done);
+
   return (
     <div className="mt-5 max-w-2xl mx-auto">
       <div className="border border-gray-200 rounded-md p-4">
@@ -19,7 +21,8 @@ function TodoList({ todos, setTodos, done, setDone }) {
                 }`}
                 onClick={() => setDone(false)}
               >
-                کارهای در حال انجام
+                کارهای در حال انجام (
+                {todos.filter((item) => item.done === false).length})
               </button>
             </li>
             <li className="ml-2">
@@ -31,23 +34,28 @@ function TodoList({ todos, setTodos, done, setDone }) {
                 }`}
                 onClick={() => setDone(true)}
               >
-                کارهای انجام شده
+                کارهای انجام شده (
+                {todos.filter((item) => item.done === true).length})
               </button>
             </li>
           </ul>
         </div>
 
         <div className="mt-6">
-          {todos.length
-            ? todos.map((item) => (
-                <TodoItems
-                  todo={item}
-                  key={item.id}
-                  todos={todos}
-                  setTodos={setTodos}
-                />
-              ))
-            : null}
+          {doneTodos.length ? (
+            doneTodos.map((item) => (
+              <TodoItems
+                todo={item}
+                key={item.id}
+                todos={todos}
+                setTodos={setTodos}
+              />
+            ))
+          ) : (
+            <p className="text-sm text-center font-bold">
+              چیزی برای نمایش وجود ندارد...
+            </p>
+          )}
         </div>
       </div>
     </div>

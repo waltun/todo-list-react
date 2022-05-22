@@ -2,9 +2,9 @@ import React from "react";
 
 function TodoItems({ todo, todos, setTodos }) {
   const handleDone = (id) => {
-    let currentItem = todos.find((item) => item.id === id);
-    currentItem.done = !todo.done;
-    setTodos([{ ...currentItem }]);
+    todo.done = !todo.done;
+    let newTodos = todos.filter((item) => item.id !== id);
+    setTodos([...newTodos, { ...todo }]);
   };
 
   return (
@@ -26,10 +26,14 @@ function TodoItems({ todo, todos, setTodos }) {
           </div>
           <div className="ml-2">
             <button
-              className="text-xs bg-yellow-500 px-4 py-1 rounded-md text-white hover:bg-yellow-600"
+              className={`text-xs px-4 py-1 rounded-md text-white ${
+                todo.done
+                  ? "bg-yellow-500 hover:bg-yellow-600"
+                  : "bg-green-500 hover:bg-green-600"
+              }`}
               onClick={() => handleDone(todo.id)}
             >
-              اتمام
+              {todo.done ? "بازگردانی" : "اتمام"}
             </button>
           </div>
         </div>
