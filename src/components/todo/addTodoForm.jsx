@@ -3,6 +3,9 @@ import React, { useContext, useState } from "react";
 // import Context
 import TodosContext from "../../context/todosContext";
 
+// import Axios
+import axios from "axios";
+
 function AddTodoForm() {
   const [todo, setTodo] = useState({
     id: "",
@@ -23,6 +26,15 @@ function AddTodoForm() {
     event.preventDefault();
 
     todosContext.setTodos([...todosContext.todos, { ...todo, id: Date.now() }]);
+
+    // HTTP request to end api (Store user)
+    axios
+      .post("https://6283d9436b6c317d5ba74d17.endapi.io/todos", {
+        text: todo.text,
+        done: todo.done,
+      })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
 
     todo.text = "";
   };
