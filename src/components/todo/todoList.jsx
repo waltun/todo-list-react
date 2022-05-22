@@ -1,7 +1,7 @@
 import React from "react";
 import TodoItems from "./todoItems";
 
-function TodoList({ todos, setTodos, done, setDone }) {
+function TodoList({ todos, setTodos, done, setDone, edit, setEdit }) {
   let doneTodos = todos.filter((item) => item.done === done);
 
   return (
@@ -49,6 +49,8 @@ function TodoList({ todos, setTodos, done, setDone }) {
                 key={item.id}
                 todos={todos}
                 setTodos={setTodos}
+                edit={edit}
+                setEdit={setEdit}
               />
             ))
           ) : (
