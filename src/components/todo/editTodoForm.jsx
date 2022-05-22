@@ -3,6 +3,9 @@ import React, { useContext, useState } from "react";
 // import Context
 import TodosContext from "../../context/todosContext";
 
+// import Axios
+import axios from "axios";
+
 function EditTodoForm({ todo, setEdit }) {
   const todosContext = useContext(TodosContext);
 
@@ -19,7 +22,16 @@ function EditTodoForm({ todo, setEdit }) {
 
     todo.text = editTodo.text;
     let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
-    todosContext.setTodos([...newTodos, { ...todo }]);
+
+    //HTTP request to end api (Edit todo)
+    axios
+      .put(`https://6283d9436b6c317d5ba74d17.endapi.io/todos/${todo.id}`, {
+        text: editTodo.text,
+        done: editTodo.done,
+      })
+      .then((response) => todosContext.setTodos([...newTodos, { ...todo }]))
+      .catch((error) => console.log(error));
+
     setEdit(false);
   };
 
