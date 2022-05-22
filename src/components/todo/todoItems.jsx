@@ -29,7 +29,12 @@ function TodoItems({ todo }) {
 
   const handleDelete = () => {
     let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
-    todosContext.setTodos([...newTodos]);
+
+    //HTTP request to end api (Delete todo)
+    axios
+      .delete(`https://6283d9436b6c317d5ba74d17.endapi.io/todos/${todo.id}`)
+      .then((response) => todosContext.setTodos([...newTodos]))
+      .catch((error) => console.log(error));
   };
 
   const handleEdit = () => {
