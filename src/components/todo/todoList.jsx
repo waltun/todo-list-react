@@ -9,6 +9,7 @@ import TodosContext from "../../context/todosContext";
 function TodoList({ edit, setEdit }) {
   const todosContext = useContext(TodosContext);
 
+  // Filter todos according to done state
   let doneTodos = todosContext.todos.filter(
     (item) => item.done === todosContext.done
   );

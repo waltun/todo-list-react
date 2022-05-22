@@ -17,8 +17,11 @@ function App() {
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  //Get all todos from API and set in state when app loaded
   useEffect(() => {
     setLoading(true);
+
+    //HTTP request to end api (Get todos)
     axios
       .get("https://6283d9436b6c317d5ba74d17.endapi.io/todos")
       .then((response) => {
@@ -27,6 +30,7 @@ function App() {
       })
       .catch((error) => console.log(error));
   }, []);
+
   return (
     <>
       <TodosContext.Provider

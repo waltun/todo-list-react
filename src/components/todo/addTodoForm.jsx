@@ -16,21 +16,24 @@ function AddTodoForm() {
   // Context
   const todosContext = useContext(TodosContext);
 
+  // Get input value and set in state
   const handleInput = (event) => {
     let value = event.target.value;
 
     setTodo({ ...todo, text: value });
   };
 
+  //Submit add form and send data to api
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    //Check length of text
+    // Check length of text
     if (todo.text.length > 2) {
       todosContext.setTodos([
         ...todosContext.todos,
         { ...todo, id: Date.now() },
       ]);
+
       // HTTP request to end api (Store user)
       axios
         .post("https://6283d9436b6c317d5ba74d17.endapi.io/todos", {
@@ -40,6 +43,7 @@ function AddTodoForm() {
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
 
+      // Empty add todo input
       todo.text = "";
     }
   };

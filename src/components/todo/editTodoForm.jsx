@@ -11,19 +11,21 @@ function EditTodoForm({ todo, setEdit }) {
 
   const [editTodo, setEditTodo] = useState(todo);
 
+  // Get input value and set in state
   const handleInput = (event) => {
     let value = event.target.value;
 
     setEditTodo({ ...editTodo, text: value });
   };
 
+  // Submit edit form and send data to api
   const handleEditForm = (event) => {
     event.preventDefault();
 
     todo.text = editTodo.text;
     let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
 
-    //HTTP request to end api (Edit todo)
+    // HTTP request to end api (Edit todo)
     axios
       .put(`https://6283d9436b6c317d5ba74d17.endapi.io/todos/${todo.id}`, {
         text: editTodo.text,

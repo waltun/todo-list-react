@@ -14,6 +14,7 @@ function TodoItems({ todo }) {
 
   const [edit, setEdit] = useState(false);
 
+  //Toggle done state in todos
   const handleDone = () => {
     todo.done = !todo.done;
     let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
@@ -27,6 +28,7 @@ function TodoItems({ todo }) {
       .catch((error) => console.log(error));
   };
 
+  //Delete an todo
   const handleDelete = () => {
     let newTodos = todosContext.todos.filter((item) => item.id !== todo.id);
 
